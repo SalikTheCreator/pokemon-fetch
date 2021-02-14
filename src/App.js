@@ -6,8 +6,8 @@ function App() {
   
   const [pokemon, setPokemon] = useState([])
   const [currentPageUrl,setCurrentPageUrl] = useState('https://pokeapi.co/api/v2/pokemon')
-  const [nextPageURl,setNextPageUrl] = useState([])
-  const [prevPageURl,setprevPageUrl] = useState([])
+  const [nextPageUrl,setNextPageUrl] = useState()
+  const [prevPageUrl,setprevPageUrl] = useState()
   const[loading,setLoading]=useState(true)
 
   useEffect(() => {
@@ -25,12 +25,12 @@ function App() {
     return () => {cancel()}
 },[currentPageUrl])
 
-function goToNextPage(){
-  setCurrentPageUrl(nextPageURl)
+function gotoNextPage(){
+  setCurrentPageUrl(nextPageUrl)
 }
 
-function goToPrevPage(){
-  setCurrentPageUrl(prevPageURl)
+function gotoPrevPage(){
+  setCurrentPageUrl(prevPageUrl)
 }
 
 if(loading) return "Loading Pokemons!!!"
@@ -38,7 +38,9 @@ if(loading) return "Loading Pokemons!!!"
   return (
     <>
  <PokemonList pokemon={pokemon}/>
- <Pagination goToNextPage={goToNextPage ? goToNextPage : null} goToPrevPage={goToPrevPage ? goToPrevPage : null}/>
+ <Pagination 
+      gotoNextPage={nextPageUrl ? gotoNextPage : null} 
+      gotoPrevPage={prevPageUrl ? gotoPrevPage : null} />
  </>
   );
 }
